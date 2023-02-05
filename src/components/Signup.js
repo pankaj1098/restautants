@@ -11,6 +11,8 @@ import {
 import React, { useState } from "react";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signUpUserAction } from "../reducer/asyncUserReducer";
 const Signup = () => {
   const paperStyle = { padding: "30px 20px", width: 350, margin: "20px auto" };
   const headerStyle = { margin: 0 };
@@ -20,6 +22,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const signupButtonClickhandeler = () => {
     navigate("/login");
@@ -35,11 +38,18 @@ const Signup = () => {
 
   const signupDetailsClickHandeler = (e) => {
     e.preventDefault();
-    const signupDetails = {
-      email: email,
-      password: password,
-    };
-    console.log(signupDetails);
+    // const signupDetails = {
+    //   email: email,
+    //   password: password,
+    // };
+    // console.log(signupDetails);
+    console.log('1', email, password)
+    dispatch(
+      signUpUserAction({
+        swapnilEmail: email,
+        swapnilPassword: password,
+      })
+    );
   };
 
   return (

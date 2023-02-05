@@ -8,9 +8,12 @@ import {
   Typography,
 } from "@mui/material";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUserAction } from "../reducer/asyncUserReducer";
+import { selectUser } from "../reducer/userSlice";
 const LogIn = () => {
   const paperStyle = { padding: "30px 20px", width: 350, margin: "20px auto" };
   const headerStyle = { margin: 0 };
@@ -19,12 +22,27 @@ const LogIn = () => {
   const marginButtonTop = { marginTop: 7 };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userDetail = useSelector(selectUser);
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState(null);
 
   const signupButtonClickhandeler = () => {
     navigate("/signup");
   };
+
+  const userIsLogin = () => {
+    if (userDetail) {
+      setUserIsLoggedIn(userDetail);
+    }
+  };
+
+  useEffect(() => {
+    setUserIsLoggedIn(userDetail);
+    if (userIsLoggedIn !== null) {
+      navigate("/restaurants");
+    }
+  }, [userDetail]);
 
   const emailChangeHandeler = (e) => {
     setEmail(e.target.value);
@@ -34,13 +52,16 @@ const LogIn = () => {
     setPassword(e.target.value);
   };
 
-  const loginDetailsChangeHandeler = (e) => {
+  const loginDetailsChangeHandeler = async (e) => {
     e.preventDefault();
-    const loginDetails = {
-      email: email,
-      password: password,
-    };
-    console.log(loginDetails);
+    console.log("1", email, password);
+    dispatch(
+      loginUserAction({
+        email: email,
+        password: password,
+      })
+    );
+    userIsLogin();
   };
 
   return (
