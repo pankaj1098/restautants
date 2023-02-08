@@ -7,17 +7,20 @@ const userSlice = createSlice({
     userDetail: undefined,
     isLoggedIn: false,
   },
-  reducers: {
-    
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(signUpUserAction.fulfilled, (state, action) => {
       console.log("6", action.payload);
     });
+  
     builder.addCase(loginUserAction.fulfilled, (state, action) => {
-      console.log("6", action.payload);
-      state.isLoggedIn = true;
-      state.userDetail = action.payload;
+      if (action.payload === undefined) {
+        console.log("not logged in");
+      } else {
+        console.log("logged in");
+        state.userDetail = action.payload;
+        state.isLoggedIn = true;
+      }
     });
   },
 });
@@ -25,3 +28,4 @@ const userSlice = createSlice({
 export default userSlice;
 export const { increment } = userSlice.actions;
 export const selectUser = (state) => state.user.userDetail;
+export const selectIsLoggedIn = (state) => state.user.isLoggedIn;

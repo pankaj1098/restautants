@@ -15,7 +15,7 @@ export const loginUserAction = createAsyncThunk(
   async (credentials) => {
     console.log("2", credentials);
     const response = await apiUserService.login(credentials);
-    
+
     console.log("5", response);
     return response;
   }

@@ -8,12 +8,13 @@ import {
   Typography,
 } from "@mui/material";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUserAction } from "../reducer/asyncUserReducer";
-import { selectUser } from "../reducer/userSlice";
+import { selectIsLoggedIn } from "../reducer/userSlice";
+
 const LogIn = () => {
   const paperStyle = { padding: "30px 20px", width: 350, margin: "20px auto" };
   const headerStyle = { margin: 0 };
@@ -24,25 +25,20 @@ const LogIn = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userDetail = useSelector(selectUser);
-  const [userIsLoggedIn, setUserIsLoggedIn] = useState(null);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  useEffect(() => {
+    if (isLoggedIn === false) {
+      console.log("not navigated");
+    } else {
+      console.log("navigated");
+      navigate("/restaurants");
+    }
+  }, [isLoggedIn]);
 
   const signupButtonClickhandeler = () => {
     navigate("/signup");
   };
-
-  const userIsLogin = () => {
-    if (userDetail) {
-      setUserIsLoggedIn(userDetail);
-    }
-  };
-
-  useEffect(() => {
-    setUserIsLoggedIn(userDetail);
-    if (userIsLoggedIn !== null) {
-      navigate("/restaurants");
-    }
-  }, [userDetail]);
 
   const emailChangeHandeler = (e) => {
     setEmail(e.target.value);
@@ -52,8 +48,7 @@ const LogIn = () => {
     setPassword(e.target.value);
   };
 
-  const loginDetailsChangeHandeler = async (e) => {
-    e.preventDefault();
+  const loginDetailsChangeHandeler = async () => {
     console.log("1", email, password);
     dispatch(
       loginUserAction({
@@ -61,7 +56,6 @@ const LogIn = () => {
         password: password,
       })
     );
-    userIsLogin();
   };
 
   return (
@@ -99,7 +93,6 @@ const LogIn = () => {
 
             <Button
               style={marginButtonTop}
-              type="submit"
               variant="contained"
               color="success"
               size="small"

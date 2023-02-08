@@ -1,8 +1,6 @@
 class ApiUserService {
   BASE_URL = "https://identitytoolkit.googleapis.com/v1/accounts:";
-  static getInstance() {
-    return new ApiUserService();
-  }
+ 
 
   signUp = async (credentials) => {
     console.log("3", credentials);
@@ -47,8 +45,12 @@ class ApiUserService {
       const data = await response.json();
       console.log("4", data);
       return data;
+    } else {
+      const data = await response.json();
+      alert(data.error.message);
+      return undefined
     }
   };
 }
 
-export const apiUserService = ApiUserService.getInstance();
+export const apiUserService = new ApiUserService();
