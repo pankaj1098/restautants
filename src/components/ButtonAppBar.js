@@ -13,7 +13,17 @@ import { useNavigate } from "react-router-dom";
 
 export default function ButtonAppBar() {
   const cartItems = useSelector((state) => state.foodOrder.cartItems);
+  const userProfileData = useSelector((state) => state.user.userProfileData);
+  const [email, setEmail] = React.useState(undefined);
   const navigate = useNavigate();
+  console.log(email, "jjjjjjjjj");
+
+  React.useEffect(() => {
+    if (userProfileData !== undefined) {
+      console.log("inside USE effect");
+      setEmail(userProfileData.email);
+    }
+  }, [userProfileData]);
 
   const cartButtonClickHandeler = () => {
     navigate("cart");
@@ -65,7 +75,7 @@ export default function ButtonAppBar() {
               onClick={homePageClickHandeler}
               style={{ color: "#bceb11", cursor: "pointer" }}
             >
-              Food Court
+              Food Court {email !== undefined && "Welcome" + email}
             </h2>
             <p style={{ color: "#f5e446" }}>
               Your health and taste is our top priority

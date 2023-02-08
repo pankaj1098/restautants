@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUserAction, signUpUserAction } from "./asyncUserReducer";
+import {
+  loginUserAction,
+  signUpUserAction,
+} from "./asyncUserReducer";
 
 const userSlice = createSlice({
   name: "user",
@@ -11,6 +14,7 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(signUpUserAction.fulfilled, (state, action) => {
       console.log("6", action.payload);
+      state.userSignUpData = action.payload;
     });
   
     builder.addCase(loginUserAction.fulfilled, (state, action) => {
