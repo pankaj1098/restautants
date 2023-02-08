@@ -16,17 +16,11 @@ import React, { useEffect, useState } from "react";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-<<<<<<< HEAD
-import { loginUserAction } from "../reducer/asyncUserReducer";
-import { selectIsLoggedIn } from "../reducer/userSlice";
-
-=======
 import {
   loginUserAction,
   resetPasswordUserAction,
 } from "../reducer/asyncUserReducer";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
->>>>>>> 4683542d6ba2fbc6e483f0a43f51e26845960262
 const LogIn = () => {
   const userLogInData = useSelector((state) => state.user.userLogInData);
   const paperStyle = { padding: "30px 20px", width: 350, margin: "20px auto" };
@@ -38,18 +32,6 @@ const LogIn = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-<<<<<<< HEAD
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-
-  useEffect(() => {
-    if (isLoggedIn === false) {
-      console.log("not navigated");
-    } else {
-      console.log("navigated");
-      navigate("/restaurants");
-    }
-  }, [isLoggedIn]);
-=======
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -58,21 +40,17 @@ const LogIn = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
->>>>>>> 4683542d6ba2fbc6e483f0a43f51e26845960262
 
   const signupButtonClickhandeler = () => {
     navigate("/signup");
   };
 
-<<<<<<< HEAD
-=======
   useEffect(() => {
     if (userLogInData !== undefined) {
       navigate("/restaurants");
     }
   }, [userLogInData]);
 
->>>>>>> 4683542d6ba2fbc6e483f0a43f51e26845960262
   const emailChangeHandeler = (e) => {
     setEmail(e.target.value);
   };
@@ -81,16 +59,12 @@ const LogIn = () => {
     setPassword(e.target.value);
   };
 
-<<<<<<< HEAD
-  const loginDetailsChangeHandeler = async () => {
-=======
   const forgotPasswordButtonClickhandeler = () => {
     dispatch(resetPasswordUserAction(email));
   };
 
   const loginDetailsChangeHandeler = async (e) => {
     e.preventDefault();
->>>>>>> 4683542d6ba2fbc6e483f0a43f51e26845960262
     console.log("1", email, password);
     dispatch(
       loginUserAction({
