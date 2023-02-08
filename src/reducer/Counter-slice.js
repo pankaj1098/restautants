@@ -74,11 +74,39 @@ const foodOrderSlice = createSlice({
     },
     //decreasement
     decrement(state, action) {
-      state.count -= 1;
+      const item = action.payload;
+
+      const updateItems = { ...item, count: 1 };
+      const itemIdx = state.list.findIndex((obj) => obj.id === updateItems.id);
+      if (state.list[itemIdx].count > 0) {
+        state.list[itemIdx].count -= 1;
+      } else {
+        alert("NO ITEM IN CART");
+      }
+
+      console.log(JSON.parse(JSON.stringify(state.list[itemIdx])));
+      if (state.cartItems.length >= 0) {
+      } else {
+        alert("Pls add item in cart");
+      }
+
+      // if (state.cartItems.length === 0) {
+      //   state.cartItems.pop(updateItems);
+      // } else {
+      //   const objIdx = state.cartItems.findIndex(
+      //     (obj) => obj.id === updateItems.id
+      //   );
+      //   // console.log(objIdx);
+      //   if (objIdx === -1) {
+      //     state.cartItems.pop(updateItems);
+      //   } else {
+      //     state.cartItems[objIdx].count -= 1;
+      //   }
+      // }
     },
   },
 });
 
 export default foodOrderSlice;
 // export const foodOrderActions = foodOrderSlice.actions;
-export const { increment } = foodOrderSlice.actions;
+export const { increment, decrement } = foodOrderSlice.actions;

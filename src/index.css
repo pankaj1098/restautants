@@ -6,3 +6,8 @@
 /* #root {
   margin-top: 25px;
 } */
+
+body {
+  margin-top: 20px;
+  background: linear-gradient(to left, rgb(51, 50, 50), rgb(236, 33, 145));
+}

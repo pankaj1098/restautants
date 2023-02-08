@@ -9,7 +9,8 @@ import logo from "../images/logo.svg";
 import Drawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Badge } from "@mui/material";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import { Badge, Menu, MenuItem } from "@mui/material";
 import "./Header.css";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -19,6 +20,9 @@ export default function Header() {
   const userProfileData = useSelector((state) => state.user.userProfileData);
   const [email, setEmail] = useState(undefined);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [auth, setAuth] = useState(true);
+  const [anchorEl, setAnchorEl] = useState(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,6 +34,7 @@ export default function Header() {
 
   const logInButtonClickHandeler = () => {
     navigate("login");
+    handleClose();
   };
 
   const homePageClickHandeler = () => {
@@ -38,6 +43,7 @@ export default function Header() {
 
   const myAccountButtonClickHandeler = () => {
     navigate("updateaccount");
+    handleClose();
   };
 
   const orderButtonClickHandeler = () => {
@@ -48,10 +54,19 @@ export default function Header() {
     navigate("cart");
   };
 
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   // hndle menu click
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
   //menu drawer
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -81,13 +96,14 @@ export default function Header() {
         <div>
           <Typography onClick={orderButtonClickHandeler}>ORDER</Typography>
         </div>
-        <div>
-          <Typography onClick={logInButtonClickHandeler}>LOG IN</Typography>
-        </div>
+
         <div>
           <Typography onClick={myAccountButtonClickHandeler}>
             MY ACCOUNT
           </Typography>
+        </div>
+        <div>
+          <Typography onClick={logInButtonClickHandeler}>LOG IN</Typography>
         </div>
       </ul>
     </Box>
@@ -136,23 +152,62 @@ export default function Header() {
               >
                 <div>
                   <Badge badgeContent={cartItems.length} color="primary">
-                    <ShoppingCartIcon onClick={cartButtonClickHandeler} />
+                    <ShoppingCartIcon
+                      sx={{ fontSize: 40 }}
+                      onClick={cartButtonClickHandeler}
+                    />
                   </Badge>
                 </div>
                 <div>
-                  <Typography onClick={orderButtonClickHandeler}>
+                  <Typography
+                    sx={{ ml: 2.5 }}
+                    onClick={orderButtonClickHandeler}
+                  >
                     ORDER
                   </Typography>
                 </div>
+                <div></div>
                 <div>
-                  <Typography onClick={logInButtonClickHandeler}>
-                    LOG IN
-                  </Typography>
-                </div>
-                <div>
-                  <Typography onClick={myAccountButtonClickHandeler}>
-                    MY ACCOUNT
-                  </Typography>
+                  {auth && (
+                    <div>
+                      <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleMenu}
+                        color="inherit"
+                      >
+                        <AccountCircle sx={{ fontSize: 40 }} />
+                      </IconButton>
+                      <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                          vertical: "top",
+                          horizontal: "right",
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                          vertical: "top",
+                          horizontal: "right",
+                        }}
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                      >
+                        <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        <MenuItem onClick={myAccountButtonClickHandeler}>
+                          My account
+                        </MenuItem>
+                        <MenuItem onClick={logInButtonClickHandeler}>
+                          Log in
+                        </MenuItem>
+                        <MenuItem onClick={logInButtonClickHandeler}>
+                          Log out
+                        </MenuItem>
+                      </Menu>
+                    </div>
+                  )}
                 </div>
               </ul>
             </Box>

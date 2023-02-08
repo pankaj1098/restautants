@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/material";
-import { increment } from "../reducer/Counter-slice";
+import { decrement, increment } from "../reducer/Counter-slice";
 
 const Img = styled("img")({
   margin: "auto",
@@ -23,6 +23,10 @@ export default function Restaurants() {
 
   const addClickHandeler = (item) => {
     dispatch(increment(item));
+  };
+
+  const minusClickHandeler = (item) => {
+    dispatch(decrement(item));
   };
 
   return (
@@ -62,7 +66,11 @@ export default function Restaurants() {
                     ₹{item.price}
                   </Typography>
                   &nbsp;
-                  <Button variant="contained" size="small">
+                  <Button
+                    onClick={() => minusClickHandeler(item)}
+                    variant="contained"
+                    size="small"
+                  >
                     -
                   </Button>
                   <Typography sx={{ fontSize: "1.25rem" }}>
@@ -72,7 +80,6 @@ export default function Restaurants() {
                     onClick={() => addClickHandeler(item)}
                     variant="contained"
                     size="small"
-                    // sx={{ p: -5 }}
                   >
                     +
                   </Button>

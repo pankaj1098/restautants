@@ -4,8 +4,9 @@ import { Route, Routes } from "react-router-dom";
 
 // import ButtonAppBar from "./components/ButtonAppBar";
 import Cart from "./components/Cart";
-import Footer from "./components/Footer";
-import MenuAppBar from "./components/Header";
+// import Footer from "./components/Footer";
+import Header from "./components/Header";
+// import MenuAppBar from "./components/Header";
 import Home from "./components/Home";
 // import Home from "./components/Home";
 import LogIn from "./components/LogIn";
@@ -28,6 +29,7 @@ function App() {
 
   return (
     <div>
+      <Header />
       {/* <MenuAppBar /> */}
 
       {/* <ButtonAppBar /> */}
