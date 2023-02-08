@@ -3,6 +3,10 @@ import {
   Button,
   FormControl,
   Grid,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
   Paper,
   TextField,
   Typography,
@@ -12,9 +16,13 @@ import React, { useState, useEffect } from "react";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUserAction } from "../reducer/asyncUserReducer";
-import { selectUser } from "../reducer/userSlice";
+import {
+  loginUserAction,
+  resetPasswordUserAction,
+} from "../reducer/asyncUserReducer";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 const LogIn = () => {
+  const userLogInData = useSelector((state) => state.user.userLogInData);
   const paperStyle = { padding: "30px 20px", width: 350, margin: "20px auto" };
   const headerStyle = { margin: 0 };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
@@ -24,25 +32,24 @@ const LogIn = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userDetail = useSelector(selectUser);
-  const [userIsLoggedIn, setUserIsLoggedIn] = useState(null);
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const signupButtonClickhandeler = () => {
     navigate("/signup");
   };
 
-  const userIsLogin = () => {
-    if (userDetail) {
-      setUserIsLoggedIn(userDetail);
-    }
-  };
-
   useEffect(() => {
-    setUserIsLoggedIn(userDetail);
-    if (userIsLoggedIn !== null) {
+    if (userLogInData !== undefined) {
       navigate("/restaurants");
     }
-  }, [userDetail]);
+  }, [userLogInData]);
 
   const emailChangeHandeler = (e) => {
     setEmail(e.target.value);
@@ -50,6 +57,10 @@ const LogIn = () => {
 
   const passwordChangeHandeler = (e) => {
     setPassword(e.target.value);
+  };
+
+  const forgotPasswordButtonClickhandeler = () => {
+    dispatch(resetPasswordUserAction(email));
   };
 
   const loginDetailsChangeHandeler = async (e) => {
@@ -61,7 +72,6 @@ const LogIn = () => {
         password: password,
       })
     );
-    userIsLogin();
   };
 
   return (
@@ -77,6 +87,9 @@ const LogIn = () => {
               Please Log in here to order food !
             </Typography>
           </Grid>
+
+          <hr color="green"></hr>
+
           <form>
             <TextField
               fullWidth
@@ -88,14 +101,39 @@ const LogIn = () => {
             />
             <FormControl component="fieldset" style={marginTop}></FormControl>
 
-            <TextField
+            <FormControl fullWidth sx={{ marginTop: 2 }} variant="outlined">
+              <InputLabel htmlFor="outlined-adornment-password">
+                Password
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={passwordChangeHandeler}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+            </FormControl>
+
+            {/* <TextField
               fullWidth
               label="Password"
               style={marginTop}
               placeholder="Enter your password"
               value={password}
               onChange={passwordChangeHandeler}
-            />
+            /> */}
 
             <Button
               style={marginButtonTop}
@@ -118,6 +156,19 @@ const LogIn = () => {
                 onClick={signupButtonClickhandeler}
               >
                 Create account
+              </Typography>
+            </h3>
+
+            <h3>
+              forgot password ?
+              <Typography
+                style={{ color: "red", cursor: "pointer" }}
+                type="submit"
+                variant="contained"
+                size="small"
+                onClick={forgotPasswordButtonClickhandeler}
+              >
+                click here!
               </Typography>
             </h3>
           </form>
