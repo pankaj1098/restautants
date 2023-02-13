@@ -76,18 +76,26 @@ const foodOrderSlice = createSlice({
     decrement(state, action) {
       const item = action.payload;
 
-      const updateItems = { ...item, count: 1 };
-      const itemIdx = state.list.findIndex((obj) => obj.id === updateItems.id);
-      if (state.list[itemIdx].count > 0) {
-        state.list[itemIdx].count -= 1;
+      // const updateItems = { ...item };
+      const itemIdx = state.list.findIndex((obj) => obj.id === item.id);
+      if (state.list[itemIdx].count === 0) {
+        state.list[itemIdx].count = 0;
+        alert("pls add item in cart");
       } else {
-        alert("NO ITEM IN CART");
+        state.list[itemIdx].count--;
       }
 
-      console.log(JSON.parse(JSON.stringify(state.list[itemIdx])));
-      if (state.cartItems.length >= 0) {
+      // console.log(itemIdx);
+
+      // console.log(JSON.parse(JSON.stringify(state.list[itemIdx])));
+      if (item.count < 2) {
+        state.cartItems = state.cartItems.filter(
+          (order) => order.id !== item.id
+        );
       } else {
-        alert("Pls add item in cart");
+        const objIdx = state.cartItems.findIndex((obj) => obj.id === item.id);
+        state.cartItems[objIdx].count -= 1;
+        console.log(JSON.parse(JSON.stringify(state.cartItems[objIdx])));
       }
 
       // if (state.cartItems.length === 0) {

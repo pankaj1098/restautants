@@ -1,6 +1,5 @@
 class ApiUserService {
   BASE_URL = "https://identitytoolkit.googleapis.com/v1/accounts:";
- 
 
   signUp = async (credentials) => {
     console.log("3", credentials);
@@ -103,6 +102,31 @@ class ApiUserService {
       const data = await response.json();
       console.log("4", data);
       return data.users[0];
+    }
+  };
+
+  updateProfile = async (credentials) => {
+    console.log("3", credentials);
+    const idToken = localStorage.getItem("idToken");
+    const response = await fetch(
+      this.BASE_URL + "update?key=AIzaSyB331RVX7u7LbaIbjASppO4bN6TBlPH1hQ",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          idToken: idToken,
+          displayName: "name",
+          photoUrl: "photoUrl",
+          returnSecureToken: "True",
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      console.log("4", data);
+      return data;
     }
   };
 }

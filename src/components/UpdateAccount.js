@@ -18,6 +18,7 @@ const UpdateAccount = () => {
 
   const updateAccountHandeler = (e) => {
     e.preventDefault();
+    console.log("1", name, photoUrl);
     const updateAccount = {
       name: name,
       photoUrl: photoUrl,

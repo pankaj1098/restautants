@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 
 export default function Header() {
   const cartItems = useSelector((state) => state.foodOrder.cartItems);
-  const userProfileData = useSelector((state) => state.user.userProfileData);
+  const userData = useSelector((state) => state.user.userData);
   const [email, setEmail] = useState(undefined);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [auth, setAuth] = useState(true);
@@ -26,11 +26,11 @@ export default function Header() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (userProfileData !== undefined) {
+    if (userData !== undefined) {
       console.log("inside USE effect");
-      setEmail(userProfileData.email);
+      setEmail(userData.email);
     }
-  }, [userProfileData]);
+  }, [userData]);
 
   const logInButtonClickHandeler = () => {
     navigate("login");
@@ -52,6 +52,11 @@ export default function Header() {
 
   const cartButtonClickHandeler = () => {
     navigate("cart");
+  };
+
+  const profileButtonClickHandeler = () => {
+    navigate("profile");
+    handleClose();
   };
 
   const handleMenu = (event) => {
@@ -195,7 +200,9 @@ export default function Header() {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                       >
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        <MenuItem onClick={profileButtonClickHandeler}>
+                          Profile
+                        </MenuItem>
                         <MenuItem onClick={myAccountButtonClickHandeler}>
                           My account
                         </MenuItem>

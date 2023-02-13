@@ -41,3 +41,14 @@ export const getUserDataAction = createAsyncThunk(
     return response.users[0];
   }
 );
+
+export const getProfileDataAction = createAsyncThunk(
+  "getProfileDataAction",
+  async () => {
+    console.log("2");
+    const response = await apiUserService.updateProfile();
+
+    console.log("5", response);
+    return response.users[0];
+  }
+);

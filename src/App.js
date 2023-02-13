@@ -11,10 +11,14 @@ import Home from "./components/Home";
 // import Home from "./components/Home";
 import LogIn from "./components/LogIn";
 import OrderList from "./components/OrderList";
+import Profile from "./components/Profile";
 import Restaurants from "./components/Restaurants";
 import Signup from "./components/Signup";
 import UpdateAccount from "./components/UpdateAccount";
-import { getUserDataAction } from "./reducer/asyncUserReducer";
+import {
+  getProfileDataAction,
+  getUserDataAction,
+} from "./reducer/asyncUserReducer";
 
 function App() {
   const userLogInData = useSelector((state) => state.user.userLogInData);
@@ -24,6 +28,7 @@ function App() {
     if (userLogInData === undefined) {
       console.log(1);
       dispatch(getUserDataAction());
+      dispatch(getProfileDataAction());
     } else return;
   }, []);
 
@@ -42,6 +47,7 @@ function App() {
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/login" element={<LogIn />}></Route>
         <Route path="/updateaccount" element={<UpdateAccount />}></Route>
+        <Route path="/profile" element={<Profile />}></Route>
       </Routes>
     </div>
   );
