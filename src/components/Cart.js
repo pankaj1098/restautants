@@ -42,6 +42,7 @@ const Img = styled("img")({
 export default function ComplexGrid() {
   const cartOrder = useSelector((state) => state.foodOrder.cartItems);
   const dispatch = useDispatch();
+  const [totalAmounts, setTotalAmounts] = React.useState(0);
 
   const addClickHandeler = (item) => {
     dispatch(increment(item));
@@ -50,6 +51,33 @@ export default function ComplexGrid() {
   const minusClickHandeler = (item) => {
     dispatch(decrement(item));
   };
+
+  React.useEffect(() => {
+    totalAmount();
+  }, [cartOrder]);
+
+  const totalAmount = () => {
+    const amountOfEachQuantity = cartOrder.map((item) => {
+      return item.count * parseInt(item.price);
+    });
+    console.log(amountOfEachQuantity);
+
+    const total = amountOfEachQuantity.reduce((previous, current) => {
+      return previous + current;
+    });
+
+    console.log(total);
+    setTotalAmounts(total);
+  };
+  
+  const oddOrEven = (number) => {
+    if (number % 2 === 0) {
+      return "even";
+    } else {
+      return "odd";
+    }
+  };
+
   return (
     <div>
       {cartOrder.map((item) => (
@@ -98,6 +126,7 @@ export default function ComplexGrid() {
                   <Typography sx={{ fontSize: "1.25rem" }}>
                     {item.count}
                   </Typography>
+                  <Typography>{oddOrEven(item.count)}</Typography>
                   <Button
                     onClick={() => addClickHandeler(item)}
                     variant="contained"
@@ -116,6 +145,7 @@ export default function ComplexGrid() {
           </Grid>
         </Paper>
       ))}
+      <div>Total Amount {totalAmounts}</div>
     </div>
   );
 }

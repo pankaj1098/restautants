@@ -21,8 +21,12 @@ import {
   resetPasswordUserAction,
 } from "../reducer/asyncUserReducer";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { selectIsLoggedIn } from "../reducer/userSlice";
+
 const LogIn = () => {
-  const userLogInData = useSelector((state) => state.user.userLogInData);
+  // const userLogInData = useSelector((state) => state.user.userData);
+  const loggedInState = useSelector(selectIsLoggedIn);
+  console.log(loggedInState);
   const paperStyle = { padding: "30px 20px", width: 350, margin: "20px auto" };
   const headerStyle = { margin: 0 };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
@@ -46,10 +50,11 @@ const LogIn = () => {
   };
 
   useEffect(() => {
-    if (userLogInData !== undefined) {
+    if (loggedInState === true) {
+      console.log('inside useEffect')
       navigate("/restaurants");
     }
-  }, [userLogInData]);
+  }, [loggedInState]);
 
   const emailChangeHandeler = (e) => {
     setEmail(e.target.value);
@@ -73,6 +78,7 @@ const LogIn = () => {
       })
     );
   };
+
 
   return (
     <div>

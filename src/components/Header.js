@@ -12,18 +12,21 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Badge, Menu, MenuItem } from "@mui/material";
 import "./Header.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { logoutAction, selectIsLoggedIn } from "../reducer/userSlice";
 
 export default function Header() {
   const cartItems = useSelector((state) => state.foodOrder.cartItems);
   const userData = useSelector((state) => state.user.userData);
+  const loggedInState = useSelector(selectIsLoggedIn);
   const [email, setEmail] = useState(undefined);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (userData !== undefined) {
@@ -38,7 +41,7 @@ export default function Header() {
   };
 
   const homePageClickHandeler = () => {
-    navigate("restaurants");
+    navigate("/");
   };
 
   const myAccountButtonClickHandeler = () => {
@@ -70,6 +73,11 @@ export default function Header() {
   // hndle menu click
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+  const logoutButtonClickHandeler = async () => {
+    console.log('logout button clicked')
+    dispatch(logoutAction());
+    navigate('/')
   };
 
   //menu drawer
@@ -163,14 +171,26 @@ export default function Header() {
                     />
                   </Badge>
                 </div>
-                <div>
-                  <Typography
-                    sx={{ ml: 2.5 }}
-                    onClick={orderButtonClickHandeler}
-                  >
-                    ORDER
-                  </Typography>
-                </div>
+                {loggedInState === true ? (
+                  <div>
+                    <Typography
+                      sx={{ ml: 2.5, fontSize: 25 }}
+                      onClick={logoutButtonClickHandeler}
+                    >
+                      Logout
+                    </Typography>
+                  </div>
+                ) : (
+                  <div>
+                    <Typography
+                      sx={{ ml: 2.5, fontSize: 25 }}
+                      onClick={logInButtonClickHandeler}
+                    >
+                      Login
+                    </Typography>
+                  </div>
+                )}
+
                 <div></div>
                 <div>
                   {auth && (
@@ -206,12 +226,12 @@ export default function Header() {
                         <MenuItem onClick={myAccountButtonClickHandeler}>
                           My account
                         </MenuItem>
-                        <MenuItem onClick={logInButtonClickHandeler}>
-                          Log in
+                        <MenuItem onClick={orderButtonClickHandeler}>
+                          OrderList
                         </MenuItem>
-                        <MenuItem onClick={logInButtonClickHandeler}>
+                        {/* <MenuItem onClick={logInButtonClickHandeler}>
                           Log out
-                        </MenuItem>
+                        </MenuItem> */}
                       </Menu>
                     </div>
                   )}
