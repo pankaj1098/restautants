@@ -38,17 +38,17 @@ export const getUserDataAction = createAsyncThunk(
     const response = await apiUserService.userData();
 
     console.log("5", response);
-    return response.users[0];
+    return response;
   }
 );
 
 export const getProfileDataAction = createAsyncThunk(
   "getProfileDataAction",
-  async () => {
+  async (credentials) => {
     console.log("2");
-    const response = await apiUserService.updateProfile();
+    const response = await apiUserService.updateProfile(credentials);
 
     console.log("5", response);
-    return response.users[0];
+    return response;
   }
 );

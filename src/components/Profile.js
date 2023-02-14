@@ -1,9 +1,17 @@
 import * as React from "react";
-import pbg from "../images/pbg.jpg";
 import { Avatar, Grid, Paper } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
+  const profileData = useSelector((state) => state.user.userData);
+  const navigate = useNavigate();
+
+  const editProfileButtonClickHandeler = () => {
+    navigate("/updateaccount");
+  };
+  // console.log(profileData);
   return (
     <Paper
       sx={{
@@ -13,15 +21,16 @@ export default function Profile() {
         marginTop: 5,
       }}
       style={{
-        backgroundImage: `url(${pbg})`,
-        backgroundRepeat: "no-repeat",
+        backgroundColor: "#ffe6e6",
       }}
     >
       <Grid sx={{ display: "flex" }}>
-        <Avatar
-          sx={{ width: "150px", height: "150px", mt: "65px" }}
-          src="/broken-image.jpg"
-        />
+        {profileData !== undefined && (
+          <Avatar
+            sx={{ width: "150px", height: "150px", mt: "65px" }}
+            src={profileData.photoUrl}
+          />
+        )}
         <div>
           <p
             style={{
@@ -30,7 +39,7 @@ export default function Profile() {
               marginTop: "80px",
             }}
           >
-            Pankaj Yadav
+            {profileData !== undefined && profileData.displayName}
           </p>
           <p
             style={{
@@ -38,10 +47,11 @@ export default function Profile() {
               marginLeft: "25px",
             }}
           >
-            pankajyadav.ce@gmail.com
+            {profileData && profileData.email}
           </p>
         </div>
         <button
+          onClick={editProfileButtonClickHandeler}
           style={{
             width: "180px",
             height: "30px",

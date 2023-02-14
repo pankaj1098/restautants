@@ -1,8 +1,14 @@
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getProfileDataAction } from "../reducer/asyncUserReducer";
 
 const UpdateAccount = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const paperStyle = { padding: "30px 20px", width: 350, margin: "20px auto" };
   const headerStyle = { margin: 8 };
 
@@ -23,7 +29,14 @@ const UpdateAccount = () => {
       name: name,
       photoUrl: photoUrl,
     };
+    dispatch(getProfileDataAction(updateAccount));
+    navigate("/profile");
+
     console.log(updateAccount);
+  };
+
+  const cancelButtonClickHandeler = () => {
+    navigate("/profile");
   };
 
   return (
@@ -70,6 +83,7 @@ const UpdateAccount = () => {
               update account
             </Button>
             <Button
+              onClick={cancelButtonClickHandeler}
               size="small"
               style={{ marginTop: 8 }}
               type="Cancel"

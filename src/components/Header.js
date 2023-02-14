@@ -22,11 +22,11 @@ export default function Header() {
   const loggedInState = useSelector(selectIsLoggedIn);
   const [email, setEmail] = useState(undefined);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [auth, setAuth] = useState(true);
+  const [auth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (userData !== undefined) {
@@ -75,9 +75,9 @@ export default function Header() {
     setMobileOpen(!mobileOpen);
   };
   const logoutButtonClickHandeler = async () => {
-    console.log('logout button clicked')
+    console.log("logout button clicked");
     dispatch(logoutAction());
-    navigate('/')
+    navigate("/");
   };
 
   //menu drawer
@@ -96,7 +96,7 @@ export default function Header() {
           height={"70"}
           width="200"
         />
-        {email !== undefined && "Welcome" + email}
+        {userData !== undefined && "Welcome" + userData.displayName}
       </Typography>
       <Divider />
       <ul className="mobile-navigation">
@@ -151,7 +151,7 @@ export default function Header() {
                 height={"70"}
                 width="250"
               />
-              {email !== undefined && "Welcome" + email}
+              {userData !== undefined && "Welcome" + userData.displayName}
             </Typography>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               <ul
@@ -223,15 +223,12 @@ export default function Header() {
                         <MenuItem onClick={profileButtonClickHandeler}>
                           Profile
                         </MenuItem>
-                        <MenuItem onClick={myAccountButtonClickHandeler}>
+                        {/* <MenuItem onClick={myAccountButtonClickHandeler}>
                           My account
-                        </MenuItem>
+                        </MenuItem> */}
                         <MenuItem onClick={orderButtonClickHandeler}>
                           OrderList
                         </MenuItem>
-                        {/* <MenuItem onClick={logInButtonClickHandeler}>
-                          Log out
-                        </MenuItem> */}
                       </Menu>
                     </div>
                   )}

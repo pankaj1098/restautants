@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  getProfileDataAction,
   getUserDataAction,
   loginUserAction,
   resetPasswordUserAction,
@@ -18,7 +17,7 @@ const userSlice = createSlice({
   },
   reducers: {
     logoutAction(state) {
-      console.log('logout button clicked')
+      console.log("logout button clicked");
       state.isLoggedIn = false;
       state.userData = undefined;
       localStorage.clear();
@@ -50,10 +49,10 @@ const userSlice = createSlice({
       console.log(6, action.payload);
       state.userData = action.payload;
     });
-    builder.addCase(getProfileDataAction.fulfilled, (state, action) => {
-      console.log(6, action.payload);
-      // state.userProfileData = action.payload;
-    });
+    // builder.addCase(getProfileDataAction.fulfilled, (state, action) => {
+    //   console.log(6, action.payload);
+    //   state.userProfileData = action.payload;
+    // });
   },
 });
 

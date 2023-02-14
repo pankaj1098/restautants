@@ -1,27 +1,3 @@
-// import React from "react";
-// import { useSelector } from "react-redux";
-
-// const Cart = () => {
-//   const cartOrder = useSelector((state) => state.foodOrder.cartItems);
-//   console.log(cartOrder);
-//   return (
-//     <div>
-//       {cartOrder.map((item) => (
-//         <li>
-//           {item.id}
-//           {item.title}
-//           Total Ammount:-₹{item.price * item.count}
-//           <button>-</button>
-//           {item.count}
-//           <button>-</button>
-//         </li>
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default Cart;
-
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
@@ -69,7 +45,7 @@ export default function ComplexGrid() {
     console.log(total);
     setTotalAmounts(total);
   };
-  
+
   const oddOrEven = (number) => {
     if (number % 2 === 0) {
       return "even";
@@ -86,10 +62,11 @@ export default function ComplexGrid() {
           sx={{
             p: 2,
             margin: "auto",
+            mt: "1%",
             maxWidth: 500,
             flexGrow: 1,
             backgroundColor: (theme) =>
-              theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+              theme.palette.mode === "dark" ? "#1A2027" : "#ccffcc",
           }}
         >
           <Grid container spacing={2}>
@@ -111,11 +88,6 @@ export default function ComplexGrid() {
                   </Typography>
                 </Grid>
                 <Grid item sx={{ display: "flex" }}>
-                  {/* <Grid item>
-                  <Typography sx={{ cursor: "pointer" }} variant="body2">
-                    Remove
-                  </Typography>
-                </Grid> */}
                   <Button
                     onClick={() => minusClickHandeler(item)}
                     variant="contained"
@@ -145,7 +117,41 @@ export default function ComplexGrid() {
           </Grid>
         </Paper>
       ))}
-      <div>Total Amount {totalAmounts}</div>
+      <Paper
+        sx={{
+          p: 2,
+          margin: "auto",
+          maxWidth: 500,
+          flexGrow: 1,
+          mt: "1%",
+          backgroundColor: (theme) =>
+            theme.palette.mode === "dark" ? "	#00b300" : "#ccffcc",
+        }}
+      >
+        <h3>Bill Details</h3>
+        <hr />
+        <br />
+        <h4>
+          Total Amount <span style={{ marginLeft: "72%" }}>{totalAmounts}</span>
+        </h4>
+        <br />
+      </Paper>
+      <Paper
+        sx={{
+          p: 2,
+          margin: "auto",
+          maxWidth: 500,
+          flexGrow: 1,
+          textAlign: "center",
+          mt: "1%",
+          backgroundColor: (theme) =>
+            theme.palette.mode === "dark" ? "#1A2027" : "#b3ffb3",
+        }}
+      >
+        <Button sx={{ bgcolor: "green", color: "black", width: "60%" }}>
+          ORDER NOW
+        </Button>
+      </Paper>
     </div>
   );
 }

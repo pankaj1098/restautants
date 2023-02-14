@@ -10,20 +10,16 @@ import Profile from "./components/Profile";
 import Restaurants from "./components/Restaurants";
 import Signup from "./components/Signup";
 import UpdateAccount from "./components/UpdateAccount";
-import {
-  getProfileDataAction,
-  getUserDataAction,
-} from "./reducer/asyncUserReducer";
+import { getUserDataAction } from "./reducer/asyncUserReducer";
 
 function App() {
-  const userLogInData = useSelector((state) => state.user.userLogInData);
+  const userData = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (userLogInData === undefined) {
+    if (userData === undefined) {
       console.log(1);
       dispatch(getUserDataAction());
-      dispatch(getProfileDataAction());
     } else return;
   }, []);
 

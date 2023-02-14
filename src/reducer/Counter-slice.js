@@ -54,9 +54,7 @@ const foodOrderSlice = createSlice({
       const itemIdx = state.list.findIndex((obj) => obj.id === updateItems.id);
 
       state.list[itemIdx].count += 1;
-      // console.log(updateItems);
-      // state.count += 1;
-      // console.log(action.payload);
+
       if (state.cartItems.length === 0) {
         state.cartItems.push(updateItems);
       } else {
@@ -70,7 +68,6 @@ const foodOrderSlice = createSlice({
           state.cartItems[objIdx].count += 1;
         }
       }
-      // console.log(state.cartItems);
     },
     //decreasement
     decrement(state, action) {
@@ -87,7 +84,6 @@ const foodOrderSlice = createSlice({
 
       // console.log(itemIdx);
 
-      // console.log(JSON.parse(JSON.stringify(state.list[itemIdx])));
       if (item.count < 2) {
         state.cartItems = state.cartItems.filter(
           (order) => order.id !== item.id
@@ -97,24 +93,9 @@ const foodOrderSlice = createSlice({
         state.cartItems[objIdx].count -= 1;
         console.log(JSON.parse(JSON.stringify(state.cartItems[objIdx])));
       }
-
-      // if (state.cartItems.length === 0) {
-      //   state.cartItems.pop(updateItems);
-      // } else {
-      //   const objIdx = state.cartItems.findIndex(
-      //     (obj) => obj.id === updateItems.id
-      //   );
-      //   // console.log(objIdx);
-      //   if (objIdx === -1) {
-      //     state.cartItems.pop(updateItems);
-      //   } else {
-      //     state.cartItems[objIdx].count -= 1;
-      //   }
-      // }
     },
   },
 });
 
 export default foodOrderSlice;
-// export const foodOrderActions = foodOrderSlice.actions;
 export const { increment, decrement } = foodOrderSlice.actions;

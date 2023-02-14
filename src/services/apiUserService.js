@@ -114,9 +114,9 @@ class ApiUserService {
         method: "POST",
         body: JSON.stringify({
           idToken: idToken,
-          displayName: "name",
-          photoUrl: "photoUrl",
-          returnSecureToken: "True",
+          displayName: credentials.name,
+          photoUrl: credentials.photoUrl,
+          returnSecureToken: true,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -127,6 +127,9 @@ class ApiUserService {
       const data = await response.json();
       console.log("4", data);
       return data;
+    } else {
+      const data = await response.json();
+      console.log(data.error);
     }
   };
 }
