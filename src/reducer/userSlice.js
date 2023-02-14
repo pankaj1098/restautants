@@ -45,10 +45,15 @@ const userSlice = createSlice({
     builder.addCase(resetPasswordUserAction.fulfilled, (state, action) => {
       console.log(6, action.payload);
     });
+
     builder.addCase(getUserDataAction.fulfilled, (state, action) => {
       console.log(6, action.payload);
       state.userData = action.payload;
+      if (action.payload) {
+        state.isLoggedIn = true;
+      }
     });
+
     // builder.addCase(getProfileDataAction.fulfilled, (state, action) => {
     //   console.log(6, action.payload);
     //   state.userProfileData = action.payload;

@@ -2,40 +2,74 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const menuList = [
   {
-    id: "1",
+    id: "c39ad4a1-929f-4ed1-9b43-8d77f895b102",
     count: 0,
-    title: "chilliPotato",
-    description: "Dish",
-    price: "90",
-    image:
-      "https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+    title: "Vegetable Biryani",
+    description:
+      "A fragrant and flavorful Indian rice dish with mixed vegetables, herbs, and spices.",
+    price: 999,
+    image: "https://www.example.com/images/vegetable-biryani.jpg",
+    rating: 4.3,
   },
   {
-    id: "2",
+    id: "7aeb3383-4216-4d1e-bc22-75452b3d3c7e",
     count: 0,
-    title: "Maal Pua",
-    description: "Dish",
-    price: "140",
-    image:
-      "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=480&q=80",
+    title: "Spinach and Feta Stuffed Mushrooms",
+    description:
+      "Mushroom caps filled with a delicious mixture of spinach, feta cheese, and herbs.",
+    price: 699,
+    image: "https://www.example.com/images/stuffed-mushrooms.jpg",
+    rating: 4.1,
   },
   {
-    id: "3",
+    id: "fc4a4bf4-408d-4d8d-99db-2e78b2993b11",
     count: 0,
-    title: "Salad",
-    description: "Dish",
-    price: "70",
-    image:
-      "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80",
+    title: "Vegetarian Pad Thai",
+    description:
+      "A classic Thai dish made with rice noodles, vegetables, and peanuts in a sweet and tangy sauce.",
+    price: 1099,
+    image: "https://www.example.com/images/pad-thai.jpg",
+    rating: 4.5,
   },
   {
-    id: "4",
+    id: "6cf5f6db-b7a9-4246-a13c-7876890a3073",
     count: 0,
-    title: "Fruit Cake",
-    description: "Dish",
-    price: "190",
-    image:
-      "https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=465&q=80",
+    title: "Caprese Salad",
+    description:
+      "A fresh and simple Italian salad made with sliced tomatoes, fresh mozzarella, and basil leaves.",
+    price: 799,
+    image: "https://www.example.com/images/caprese-salad.jpg",
+    rating: 4.0,
+  },
+  {
+    id: "c45578c1-1f28-447c-8a63-702f67aa9da2",
+    count: 0,
+    title: "Roasted Vegetable Sandwich",
+    description:
+      "A hearty sandwich with roasted bell peppers, zucchini, eggplant, and pesto mayo.",
+    price: 549,
+    image: "https://www.example.com/images/vegetable-sandwich.jpg",
+    rating: 4.2,
+  },
+  {
+    id: "6c8bb56b-747d-4c9b-9b8c-64a18452e5df",
+    count: 0,
+    title: "Grilled Portobello Mushroom Burger",
+    description:
+      "A meaty and satisfying vegetarian burger made with grilled portobello mushrooms, cheese, and veggies.",
+    price: 799,
+    image: "https://www.example.com/images/mushroom-burger.jpg",
+    rating: 4.4,
+  },
+  {
+    id: "12911f9c-893d-4d45-91c5-2e5d5c5e5d5c",
+    count: 0,
+    title: "Vegan Lentil Soup",
+    description:
+      "A hearty and flavorful soup made with lentils, vegetables, and spices.",
+    price: 499,
+    image: "https://www.example.com/images/lentil-soup.jpg",
+    rating: 4.3,
   },
 ];
 
@@ -44,6 +78,7 @@ const foodOrderSlice = createSlice({
   initialState: {
     list: menuList,
     cartItems: [],
+    orderList: [],
   },
   reducers: {
     //increasemented
@@ -94,8 +129,18 @@ const foodOrderSlice = createSlice({
         console.log(JSON.parse(JSON.stringify(state.cartItems[objIdx])));
       }
     },
+    orderNow(state, action) {
+      state.orderList.push(action.payload);
+      state.cartItems = [];
+      const newRestaurantList = [...state.list];
+      const restaurants = newRestaurantList.map((item) => {
+        return { ...item, count: 0 };
+      });
+      state.list = restaurants;
+    },
   },
 });
 
 export default foodOrderSlice;
-export const { increment, decrement } = foodOrderSlice.actions;
+export const { increment, decrement, orderNow } = foodOrderSlice.actions;
+export const selectOrderList = (state) => state.foodOrder.orderList;

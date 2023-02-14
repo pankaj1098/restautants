@@ -10,7 +10,7 @@ import Drawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import { Badge, Menu, MenuItem } from "@mui/material";
+import { Avatar, Badge, Menu, MenuItem } from "@mui/material";
 import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -151,7 +151,7 @@ export default function Header() {
                 height={"70"}
                 width="250"
               />
-              {userData !== undefined && "Welcome" + userData.displayName}
+              {/* {userData !== undefined && "Welcome" + userData.displayName} */}
             </Typography>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               <ul
@@ -203,7 +203,7 @@ export default function Header() {
                         onClick={handleMenu}
                         color="inherit"
                       >
-                        <AccountCircle sx={{ fontSize: 40 }} />
+                        {userData && <Avatar src={userData.photoUrl}></Avatar>}
                       </IconButton>
                       <Menu
                         id="menu-appbar"
