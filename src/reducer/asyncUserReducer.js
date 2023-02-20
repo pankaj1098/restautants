@@ -12,21 +12,26 @@ export const signUpUserAction = createAsyncThunk(
 );
 export const loginUserAction = createAsyncThunk(
   "loginUserAction",
-  async (credentials) => {
-    console.log("2", credentials);
+  async (credentials, thunkAPI) => {
+    // console.log("2", credentials);
     const response = await apiUserService.login(credentials);
 
-    console.log("5", response);
+    setTimeout(() => {
+      thunkAPI.dispatch(getUserDataAction());
+    }, 2000);
+
+    // }
+
     return response;
   }
 );
 export const resetPasswordUserAction = createAsyncThunk(
   "resetPasswordUserAction",
   async (credentials) => {
-    console.log("2", credentials);
+    // console.log("2", credentials);
     const response = await apiUserService.resetPassword(credentials);
 
-    console.log("5", response);
+    // console.log("5", response);
     return response;
   }
 );
@@ -34,10 +39,10 @@ export const resetPasswordUserAction = createAsyncThunk(
 export const getUserDataAction = createAsyncThunk(
   "getUserDataAction",
   async () => {
-    console.log("2");
+    // console.log("2");
     const response = await apiUserService.userData();
 
-    console.log("5", response);
+    // console.log("5", response);
     return response;
   }
 );
@@ -45,10 +50,10 @@ export const getUserDataAction = createAsyncThunk(
 export const getProfileDataAction = createAsyncThunk(
   "getProfileDataAction",
   async (credentials) => {
-    console.log("2");
+    // console.log("2");
     const response = await apiUserService.updateProfile(credentials);
 
-    console.log("5", response);
+    // console.log("5", response);
     return response;
   }
 );

@@ -29,8 +29,6 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
-  const [userIsLoggedIn, setUserIsLoggedIn] = useState(null);
-
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -53,11 +51,7 @@ const Signup = () => {
 
   const signupDetailsClickHandeler = (e) => {
     e.preventDefault();
-    // const signupDetails = {
-    //   email: email,
-    //   password: password,
-    // };
-    // console.log(signupDetails);
+
     console.log("1", email, password);
     dispatch(
       signUpUserAction({
@@ -118,14 +112,6 @@ const Signup = () => {
                 label="Password"
               />
             </FormControl>
-            {/* <TextField
-              fullWidth
-              label="Password"
-              placeholder="Enter your password"
-              sx={{ marginTop: 1 }}
-              value={password}
-              onChange={passwordChangeHandeler}
-            /> */}
 
             <Button
               style={marginButtonTop}

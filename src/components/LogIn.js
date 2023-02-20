@@ -51,8 +51,8 @@ const LogIn = () => {
 
   useEffect(() => {
     if (loggedInState === true) {
-      console.log('inside useEffect')
-      navigate("/restaurants");
+      // console.log("inside useEffect");
+      navigate("/restaurantList");
     }
   }, [loggedInState]);
 
@@ -78,7 +78,6 @@ const LogIn = () => {
       })
     );
   };
-
 
   return (
     <div>
@@ -131,15 +130,6 @@ const LogIn = () => {
                 label="Password"
               />
             </FormControl>
-
-            {/* <TextField
-              fullWidth
-              label="Password"
-              style={marginTop}
-              placeholder="Enter your password"
-              value={password}
-              onChange={passwordChangeHandeler}
-            /> */}
 
             <Button
               style={marginButtonTop}

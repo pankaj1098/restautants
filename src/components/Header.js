@@ -9,7 +9,6 @@ import logo from "../images/logo.svg";
 import Drawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Avatar, Badge, Menu, MenuItem } from "@mui/material";
 import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -96,7 +95,7 @@ export default function Header() {
           height={"70"}
           width="200"
         />
-        {userData !== undefined && "Welcome" + userData.displayName}
+        {/* {userData !== undefined && "Welcome" + userData.displayName} */}
       </Typography>
       <Divider />
       <ul className="mobile-navigation">
@@ -142,7 +141,7 @@ export default function Header() {
               color={"goldenrod"}
               variant="h6"
               component="div"
-              sx={{ flexGrow: 1, cursor: "pointer" }}
+              sx={{ flexGrow: 1, cursor: "pointer", display: "flex" }}
             >
               <img
                 onClick={homePageClickHandeler}
@@ -151,7 +150,9 @@ export default function Header() {
                 height={"70"}
                 width="250"
               />
-              {/* {userData !== undefined && "Welcome" + userData.displayName} */}
+              <h1 style={{ marginTop: "20px", marginLeft: "250px" }}>
+                {userData !== undefined && "Welcome!" + userData.displayName}
+              </h1>
             </Typography>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               <ul

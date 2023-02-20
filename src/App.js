@@ -7,10 +7,11 @@ import Home from "./components/Home";
 import LogIn from "./components/LogIn";
 import OrderList from "./components/OrderList";
 import Profile from "./components/Profile";
-import Restaurants from "./components/Restaurants";
+import RestaurantList from "./components/RestaurantList";
 import Signup from "./components/Signup";
 import UpdateAccount from "./components/UpdateAccount";
 import { getUserDataAction } from "./reducer/asyncUserReducer";
+import MenuList from "./components/MenuList";
 
 function App() {
   const userData = useSelector((state) => state.user.userData);
@@ -18,17 +19,18 @@ function App() {
 
   useEffect(() => {
     if (userData === undefined) {
-      console.log(1);
+      // console.log(1);
       dispatch(getUserDataAction());
     } else return;
-  }, []);
+  }, [userData]);
 
   return (
     <div>
       <Header />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/restaurants" element={<Restaurants />}></Route>
+        <Route path="/restaurantList" element={<RestaurantList />}></Route>
+        <Route path="/menuList" element={<MenuList />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/orderlist" element={<OrderList />}></Route>
         <Route path="/signup" element={<Signup />}></Route>

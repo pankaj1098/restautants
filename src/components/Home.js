@@ -7,7 +7,7 @@ import Layout from "./Layout";
 const Home = () => {
   const navigate = useNavigate();
   const orderNowButtonClickHandler = () => {
-    navigate("/restaurants");
+    navigate("/restaurantList");
   };
   return (
     <Layout>

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment, orderNow } from "../reducer/Counter-slice";
 import { Button } from "@mui/material";
 import { selectIsLoggedIn } from "../reducer/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Img = styled("img")({
   margin: "auto",
@@ -18,8 +19,11 @@ const Img = styled("img")({
 
 export default function ComplexGrid() {
   const cartOrder = useSelector((state) => state.foodOrder.cartItems);
+  // console.log("cart", cartOrder);
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const restaurantName = useSelector((state) => state.foodOrder.restaurantName);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [totalAmounts, setTotalAmounts] = React.useState(0);
 
   const addClickHandeler = (item) => {
@@ -38,27 +42,56 @@ export default function ComplexGrid() {
 
   const totalAmount = () => {
     const amountOfEachQuantity = cartOrder.map((item) => {
-      return item.count * parseInt(item.price);
+      return item.count * item.price;
     });
-    console.log(amountOfEachQuantity);
+    // console.log(amountOfEachQuantity);
 
     const total = amountOfEachQuantity.reduce((previous, current) => {
       return previous + current;
     });
 
-    console.log(total);
+    // console.log(total);
     setTotalAmounts(total);
   };
 
-  const oddOrEven = (number) => {
-    if (number % 2 === 0) {
-      return "even";
-    } else {
-      return "odd";
-    }
+  //for date and time
+  const date = new Date(); // get current date and time
+  const day = date.getDate(); // get day of the month (1-31)
+  const month = date.toLocaleString("default", { month: "short" }); // get month abbreviation (Jan, Feb, etc.)
+  const year = date.getFullYear(); // get four-digit year
+  const hour = date.getHours(); // get hour (0-23)
+  const minute = date.getMinutes(); // get minute (0-59)
+  const ampm = hour >= 12 ? "P.M." : "A.M."; // determine AM/PM
+  const hour12 = hour % 12 || 12; // convert to 12-hour format
+  const time = `${hour12}:${minute}${ampm}`; // format time as "hh:mmAM/PM"
+  const formattedDate = `${day} ${month} ${year} ${time}`; // format date as "day month year hh:mmAM/PM"
+
+  // const oddOrEven = (number) => {
+  //   if (number % 2 === 0) {
+  //     return "even";
+  //   } else {
+  //     return "odd";
+  //   }
+  // };
+  const orderNowButtonClickHandler = (
+    cartOrder,
+    totalAmounts,
+    formattedDate,
+    restaurantName
+  ) => {
+    // console.log("inCart", { totalAmounts });
+    dispatch(
+      orderNow({
+        orderItem: cartOrder,
+        amounts: totalAmounts,
+        date: formattedDate,
+        restaurantName: restaurantName,
+      })
+    );
   };
-  const orderNowButtonClickHandler = () => {
-    dispatch(orderNow(cartOrder));
+
+  const orderButtonClickHandler = () => {
+    navigate("/restaurantList");
   };
 
   return (
@@ -84,7 +117,7 @@ export default function ComplexGrid() {
                     <Img
                       style={{ width: 100, height: 100 }}
                       alt="complex"
-                      src={item.image}
+                      src={item.imageUrl}
                     />
                   </ButtonBase>
                 </Grid>
@@ -96,29 +129,41 @@ export default function ComplexGrid() {
                         variant="subtitle1"
                         component="div"
                       >
-                        <p>{item.title}</p>
+                        <p>{item.name}</p>
                         <p>{item.description}</p>
                       </Typography>
                     </Grid>
                     <Grid item sx={{ display: "flex" }}>
-                      <Button
+                      <button
                         onClick={() => minusClickHandeler(item)}
                         variant="contained"
-                        size="small"
+                        style={{
+                          width: "25px",
+                          height: "22px",
+                          backgroundColor: "#7a7a52",
+
+                          borderRadius: ".4rem",
+                        }}
                       >
                         -
-                      </Button>
-                      <Typography sx={{ fontSize: "1.25rem" }}>
+                      </button>
+                      <Typography sx={{ fontSize: "1rem" }}>
                         {item.count}
                       </Typography>
-                      <Typography>{oddOrEven(item.count)}</Typography>
-                      <Button
+                      {/* <Typography>{oddOrEven(item.count)}</Typography> */}
+                      <button
                         onClick={() => addClickHandeler(item)}
                         variant="contained"
-                        size="small"
+                        style={{
+                          width: "25px",
+                          height: "22px",
+                          backgroundColor: "#7a7a52",
+
+                          borderRadius: ".4rem",
+                        }}
                       >
                         +
-                      </Button>
+                      </button>
                     </Grid>
                   </Grid>
                   <Grid item>
@@ -165,7 +210,14 @@ export default function ComplexGrid() {
           >
             {isLoggedIn ? (
               <Button
-                onClick={orderNowButtonClickHandler}
+                onClick={() =>
+                  orderNowButtonClickHandler(
+                    cartOrder,
+                    totalAmounts,
+                    formattedDate,
+                    restaurantName
+                  )
+                }
                 sx={{ bgcolor: "green", color: "black", width: "60%" }}
               >
                 ORDER NOW
@@ -181,7 +233,28 @@ export default function ComplexGrid() {
           </Paper>
         </div>
       ) : (
-        <div>Nothing in the Cart, Kindly start ordering</div>
+        <Paper
+          sx={{
+            p: 2,
+            margin: "auto",
+            maxWidth: 500,
+            flexGrow: 1,
+            mt: "1%",
+            backgroundColor: (theme) =>
+              theme.palette.mode === "dark" ? "	#00b300" : "#ccffcc",
+          }}
+        >
+          <h3 style={{ textAlign: "center" }}>
+            Nothing in the Cart, Kindly start ordering
+          </h3>
+          <hr />
+          <Button
+            onClick={orderButtonClickHandler}
+            sx={{ bgcolor: "green", color: "black", width: "60%", ml: "20%" }}
+          >
+            ORDER NOW
+          </Button>
+        </Paper>
       )}
     </div>
   );

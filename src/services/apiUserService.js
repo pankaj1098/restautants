@@ -2,7 +2,7 @@ class ApiUserService {
   BASE_URL = "https://identitytoolkit.googleapis.com/v1/accounts:";
 
   signUp = async (credentials) => {
-    console.log("3", credentials);
+    // console.log("3", crede ntials);
     const response = await fetch(
       this.BASE_URL + "signUp?key=AIzaSyB331RVX7u7LbaIbjASppO4bN6TBlPH1hQ",
       {
@@ -19,7 +19,7 @@ class ApiUserService {
     );
     if (response.ok) {
       const data = await response.json();
-      console.log("4", data);
+      // console.log("4", data);
       return data;
     } else {
       const data = await response.json();
@@ -49,12 +49,12 @@ class ApiUserService {
     );
     if (response.ok) {
       const data = await response.json();
-      console.log("4", data);
+      // console.log("4", data);
       return data;
     } else {
       let errorMessage = "Log in failed";
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       if (data && data.error && data.error.message) {
         errorMessage = data.error.message;
         alert(errorMessage);
@@ -78,13 +78,13 @@ class ApiUserService {
     );
     if (response.ok) {
       const data = await response.json();
-      console.log("4", data);
+      // console.log("4", data);
       return data;
     }
   };
 
   userData = async () => {
-    console.log("3");
+    // console.log("3");
     const idToken = localStorage.getItem("idToken");
     const response = await fetch(
       this.BASE_URL + "lookup?key=AIzaSyB331RVX7u7LbaIbjASppO4bN6TBlPH1hQ",
@@ -100,7 +100,7 @@ class ApiUserService {
     );
     if (response.ok) {
       const data = await response.json();
-      console.log("4", data);
+      // console.log("4", data);
       return data.users[0];
     }
   };
@@ -125,11 +125,11 @@ class ApiUserService {
     );
     if (response.ok) {
       const data = await response.json();
-      console.log("4", data);
+      // console.log("4", data);
       return data;
     } else {
       const data = await response.json();
-      console.log(data.error);
+      // console.log(data.error);
     }
   };
 }

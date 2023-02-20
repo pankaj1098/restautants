@@ -25,15 +25,15 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(signUpUserAction.fulfilled, (state, action) => {
-      console.log("6", action.payload);
+      // console.log("6", action.payload);
       // state.userSignUpData = action.payload;
     });
 
     builder.addCase(loginUserAction.fulfilled, (state, action) => {
       if (action.payload === undefined) {
-        console.log("not logged in");
+        // console.log("not logged in");
       } else {
-        console.log("logged in");
+        // console.log("logged in");
         // state.userDetail = action.payload;
         state.isLoggedIn = true;
         const idToken = action.payload.idToken;
@@ -43,11 +43,11 @@ const userSlice = createSlice({
     });
 
     builder.addCase(resetPasswordUserAction.fulfilled, (state, action) => {
-      console.log(6, action.payload);
+      // console.log(6, action.payload);
     });
 
     builder.addCase(getUserDataAction.fulfilled, (state, action) => {
-      console.log(6, action.payload);
+      // console.log(6, action.payload);
       state.userData = action.payload;
       if (action.payload) {
         state.isLoggedIn = true;

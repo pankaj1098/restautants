@@ -11,12 +11,13 @@ export default function Profile() {
   const editProfileButtonClickHandeler = () => {
     navigate("/updateaccount");
   };
+
   // console.log(profileData);
   return (
     <Paper
       sx={{
-        width: 600,
-        height: 300,
+        width: 430,
+        height: 200,
         margin: "auto",
         marginTop: 5,
       }}
@@ -27,7 +28,7 @@ export default function Profile() {
       <Grid sx={{ display: "flex" }}>
         {profileData !== undefined && (
           <Avatar
-            sx={{ width: "150px", height: "150px", mt: "65px" }}
+            sx={{ width: "150px", height: "150px", mt: "30px" }}
             src={profileData.photoUrl}
           />
         )}
@@ -36,7 +37,7 @@ export default function Profile() {
             style={{
               fontSize: "2.75rem",
               marginLeft: "25px",
-              marginTop: "80px",
+              marginTop: "50px",
             }}
           >
             {profileData !== undefined && profileData.displayName}
@@ -49,22 +50,23 @@ export default function Profile() {
           >
             {profileData && profileData.email}
           </p>
+          <button
+            onClick={editProfileButtonClickHandeler}
+            style={{
+              width: "180px",
+              height: "30px",
+              fontSize: "1.2rem",
+              marginTop: "25px",
+              marginLeft: "25px",
+              marginBottom: "10px",
+              backgroundColor: "#EF4F5F",
+              borderRadius: "8px",
+            }}
+          >
+            <EditIcon sx={{ ml: "-5px" }} />
+            EDIT PROFILE
+          </button>
         </div>
-        <button
-          onClick={editProfileButtonClickHandeler}
-          style={{
-            width: "180px",
-            height: "30px",
-            fontSize: "1.2rem",
-            marginTop: "250px",
-
-            marginBottom: "10px",
-            backgroundColor: "#EF4F5F",
-          }}
-        >
-          <EditIcon sx={{ ml: "-5px" }} />
-          EDIT PROFILE
-        </button>
       </Grid>
     </Paper>
   );

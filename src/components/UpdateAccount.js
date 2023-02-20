@@ -3,7 +3,10 @@ import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getProfileDataAction } from "../reducer/asyncUserReducer";
+import {
+  getProfileDataAction,
+  getUserDataAction,
+} from "../reducer/asyncUserReducer";
 
 const UpdateAccount = () => {
   const dispatch = useDispatch();
@@ -31,6 +34,9 @@ const UpdateAccount = () => {
     };
     dispatch(getProfileDataAction(updateAccount));
     navigate("/profile");
+    setTimeout(() => {
+      dispatch(getUserDataAction());
+    }, 800);
 
     console.log(updateAccount);
   };
