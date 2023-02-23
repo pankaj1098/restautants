@@ -55,6 +55,17 @@ const italianMeals = [
     imageUrl:
       "https://easychickenrecipes.com/wp-content/uploads/2022/01/Featured-Fried-Chicken-Parmesan-1.jpg",
   },
+  {
+    id: 6,
+    name: "Risotto Formaggio",
+    description:
+      "This risotto recipe is great for family dinner that's filled with a unique flavour from Romano cheese. You could use leftovers from this recipe to make arancini too!",
+    price: 150,
+    rating: 3.5,
+    count: 0,
+    imageUrl:
+      "https://myfoodbook.com.au/sites/default/files/styles/rc_na/public/recipe_photo/Perf20159141_0.jpg",
+  },
 ];
 
 const indianMeals = [
@@ -113,6 +124,17 @@ const indianMeals = [
     imageUrl:
       "https://www.licious.in/blog/wp-content/uploads/2022/06/chicken-hyderabadi-biryani-01.jpg",
   },
+  {
+    id: 6,
+    name: "Kadai Paneer",
+    description:
+      "Kadai or kadhai panner is made using Indian cottage cheese, onion, bell peppers, and spices.",
+    count: 0,
+    price: 220,
+    rating: 3.8,
+    imageUrl:
+      "https://dinedelicious.in/wp-content/uploads/2021/10/Kadai-Paneer-Recipe-6-500x375.jpg",
+  },
 ];
 
 const japanesemeals = [
@@ -170,6 +192,17 @@ const japanesemeals = [
     imageUrl:
       "https://images.kitchenstories.io/wagtailOriginalImages/R2498-final-photo-_0.jpg",
   },
+  {
+    id: 6,
+    name: "Oyakodon",
+    description:
+      "The super popular soul food of Japan, oyakodon is a chicken and egg rice bowl.",
+    price: 200,
+    rating: 4.5,
+    count: 0,
+    imageUrl:
+      "https://www.seriouseats.com/thmb/t2cbi4d-LeZGu__DP5dF1gBuzsM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/oyakodon-japanese-chicken-and-egg-rice-bowl-recipe-hero-f2d42cfe8e8e4436b97d6e79d038d9bc.JPG",
+  },
 ];
 
 const frenchMeals = [
@@ -193,7 +226,7 @@ const frenchMeals = [
     rating: 4.3,
     count: 0,
     imageUrl:
-      "https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/steak-frites-107fe6c3.jpg",
+      "https://img.taste.com.au/Ww6aTRDw/taste/2016/11/15-french-meals-you-have-to-try-image-1-67790-1.jpg",
   },
   {
     id: 3,
@@ -227,6 +260,17 @@ const frenchMeals = [
     count: 0,
     imageUrl:
       "https://www.allrecipes.com/thmb/B7pwC3xXpocRpwJfkPmDk9_A3nM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/222006-disneys-ratatouille-ddmfs-4x3-0747-631622b05b4e4bd196b037aed1c9f776.jpg",
+  },
+  {
+    id: 6,
+    name: "Chicken confit",
+    description:
+      "In this classic confit, the chicken is salted and seasoned with herbs, then slowly cooked in olive oil to make it rich and tender.",
+    price: 250,
+    rating: 4.0,
+    count: 0,
+    imageUrl:
+      "https://img.taste.com.au/GoVw_Vly/taste/2016/11/15-french-meals-you-have-to-try-image-2-67791-1.jpg",
   },
 ];
 
@@ -282,6 +326,17 @@ const chineseMeals = [
     count: 0,
     imageUrl:
       "https://1.bp.blogspot.com/-FtlrI6vhMww/X2jDWCb9zUI/AAAAAAAAMPQ/TmUrBHkFo6Ui-uPBi4D6KHKhKwq6-zebQCLcBGAsYHQ/s16000/Kolkata%2Begg%2Broll.JPG",
+  },
+  {
+    id: 6,
+    name: "Chinese Idli",
+    description:
+      "Made with Idli chunks and chopped veggies followed by some tempting sauces, this quick and easy recipe can be a perfect snack and even appetizer.",
+    price: 260,
+    rating: 4.0,
+    count: 0,
+    imageUrl:
+      "https://c.ndtvimg.com/2021-07/gglohp98_chinese-idli_625x300_27_July_21.jpg",
   },
 ];
 
@@ -340,6 +395,17 @@ const southIndianMeals = [
     count: 0,
     imageUrl:
       "https://deih43ym53wif.cloudfront.net/large_appam-palappam-masala-bread-egg-curry-india-shutterstock_1236041524_e6097f6095.jpeg",
+  },
+  {
+    id: 5,
+    name: "Palkatti Chettinadu",
+    description:
+      "The paal-katti chettinad curry recipe is a paneer gravy recipe made in a Tamil Nadu-Chettinad style. It is a recipe that originated from the traditional chettinad-style curry.",
+    price: 200,
+    rating: 4.0,
+    count: 0,
+    imageUrl:
+      "https://www.chefspencil.com/wp-content/uploads/Palkatti-Chettinadu-960x960.jpg.webp",
   },
 ];
 

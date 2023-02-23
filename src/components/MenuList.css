@@ -1,0 +1,43 @@
+.cutoff-text {
+  --max-lines: 2;
+  --line-height: 1.4;
+
+  max-height: calc(var(--max-lines) * 1em * var(--line-height));
+  line-height: var(--line-height);
+  overflow: hidden;
+  position: relative;
+}
+
+.cutoff-text::before {
+  content: "";
+  position: absolute;
+  height: calc(1em * var(--line-height));
+  width: 100%;
+  bottom: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, white);
+}
+.expand-btn {
+  appearance: none;
+  border: 1px solid black;
+  padding: 0.25em;
+  border-radius: 0.25em;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.expand-btn:hover {
+  background-color: #ccc;
+}
+
+.expand-btn::before {
+  content: "Expand";
+}
+
+.expand-btn:checked::before {
+  content: "Collapse";
+}
+
+.cutoff-text:has(+ .expand-btn:checked) {
+  max-height: none;
+}

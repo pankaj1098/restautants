@@ -86,7 +86,7 @@ const OrderList = () => {
                       <item>
                         {" "}
                         <h3 style={{ marginTop: "10px" }}>
-                          Amounts:{order.count * order.price}
+                          {order.count * order.price}
                         </h3>
                       </item>
                     </Grid>

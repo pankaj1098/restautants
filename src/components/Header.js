@@ -155,24 +155,25 @@ export default function Header() {
               </h1>
             </Typography>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              <ul
-                className="navigation-menu"
-                style={{
-                  gap: "18px",
-                  cursor: "pointer",
-                  color: "goldenrod",
-                  fontSize: "20px",
-                }}
-              >
-                <div>
-                  <Badge badgeContent={cartItems.length} color="primary">
-                    <ShoppingCartIcon
-                      sx={{ fontSize: 40 }}
-                      onClick={cartButtonClickHandeler}
-                    />
-                  </Badge>
-                </div>
-                {loggedInState === true ? (
+              {loggedInState === true ? (
+                <ul
+                  className="navigation-menu"
+                  style={{
+                    gap: "18px",
+                    cursor: "pointer",
+                    color: "goldenrod",
+                    fontSize: "20px",
+                  }}
+                >
+                  <div>
+                    <Badge badgeContent={cartItems.length} color="primary">
+                      <ShoppingCartIcon
+                        sx={{ fontSize: 40 }}
+                        onClick={cartButtonClickHandeler}
+                      />
+                    </Badge>
+                  </div>
+
                   <div>
                     <Typography
                       sx={{ ml: 2.5, fontSize: 25 }}
@@ -181,60 +182,69 @@ export default function Header() {
                       Logout
                     </Typography>
                   </div>
-                ) : (
                   <div>
-                    <Typography
-                      sx={{ ml: 2.5, fontSize: 25 }}
-                      onClick={logInButtonClickHandeler}
-                    >
-                      Login
-                    </Typography>
-                  </div>
-                )}
-
-                <div></div>
-                <div>
-                  {auth && (
-                    <div>
-                      <IconButton
-                        size="large"
-                        aria-label="account of current user"
-                        aria-controls="menu-appbar"
-                        aria-haspopup="true"
-                        onClick={handleMenu}
-                        color="inherit"
-                      >
-                        {userData && <Avatar src={userData.photoUrl}></Avatar>}
-                      </IconButton>
-                      <Menu
-                        id="menu-appbar"
-                        anchorEl={anchorEl}
-                        anchorOrigin={{
-                          vertical: "top",
-                          horizontal: "right",
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                          vertical: "top",
-                          horizontal: "right",
-                        }}
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                      >
-                        <MenuItem onClick={profileButtonClickHandeler}>
-                          Profile
-                        </MenuItem>
-                        {/* <MenuItem onClick={myAccountButtonClickHandeler}>
+                    {auth && (
+                      <div>
+                        <IconButton
+                          size="large"
+                          aria-label="account of current user"
+                          aria-controls="menu-appbar"
+                          aria-haspopup="true"
+                          onClick={handleMenu}
+                          color="inherit"
+                        >
+                          {loggedInState === true ? (
+                            <div>
+                              {userData && (
+                                <Avatar src={userData.photoUrl}></Avatar>
+                              )}
+                            </div>
+                          ) : (
+                            <div>
+                              <Avatar src="/broken-image.jpg"></Avatar>
+                            </div>
+                          )}
+                        </IconButton>
+                        <Menu
+                          id="menu-appbar"
+                          anchorEl={anchorEl}
+                          anchorOrigin={{
+                            vertical: "top",
+                            horizontal: "right",
+                          }}
+                          keepMounted
+                          transformOrigin={{
+                            vertical: "top",
+                            horizontal: "right",
+                          }}
+                          open={Boolean(anchorEl)}
+                          onClose={handleClose}
+                        >
+                          <MenuItem onClick={profileButtonClickHandeler}>
+                            Profile
+                          </MenuItem>
+                          {/* <MenuItem onClick={myAccountButtonClickHandeler}>
                           My account
                         </MenuItem> */}
-                        <MenuItem onClick={orderButtonClickHandeler}>
-                          OrderList
-                        </MenuItem>
-                      </Menu>
-                    </div>
-                  )}
+                          <MenuItem onClick={orderButtonClickHandeler}>
+                            OrderList
+                          </MenuItem>
+                        </Menu>
+                      </div>
+                    )}
+                  </div>
+                </ul>
+              ) : (
+                <div>
+                  <Typography
+                    color={"goldenrod"}
+                    sx={{ ml: 2.5, fontSize: 25, cursor: "pointer" }}
+                    onClick={logInButtonClickHandeler}
+                  >
+                    Login
+                  </Typography>
                 </div>
-              </ul>
+              )}
             </Box>
           </Toolbar>
         </AppBar>

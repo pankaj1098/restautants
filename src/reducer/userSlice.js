@@ -9,11 +9,8 @@ import {
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    // userDetail: undefined,
     isLoggedIn: false,
-    // userLogInData: undefined,
     userData: undefined,
-    // userProfileData: undefined,
   },
   reducers: {
     logoutAction(state) {

@@ -48,8 +48,13 @@ const RestaurantList = () => {
                 <Typography variant="h5" gutterBottom component={"div"}>
                   {resName.name}
                   <br />
-                  <Rating name="read-only" value={resName.rating} readOnly />
                 </Typography>
+                <Rating
+                  name="half-rating-read"
+                  defaultValue={resName.rating}
+                  precision={0.1}
+                  readOnly
+                />
                 <Typography variant="h6" gutterBottom component={"div"}>
                   {resName.type}
                 </Typography>

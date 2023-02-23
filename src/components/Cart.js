@@ -9,6 +9,7 @@ import { decrement, increment, orderNow } from "../reducer/Counter-slice";
 import { Button } from "@mui/material";
 import { selectIsLoggedIn } from "../reducer/userSlice";
 import { useNavigate } from "react-router-dom";
+import Layout from "./Layout";
 
 const Img = styled("img")({
   margin: "auto",
@@ -86,7 +87,8 @@ export default function ComplexGrid() {
         amounts: totalAmounts,
         date: formattedDate,
         restaurantName: restaurantName,
-      })
+      }),
+      navigate("/orderlist")
     );
   };
 
@@ -95,87 +97,137 @@ export default function ComplexGrid() {
   };
 
   return (
-    <div>
-      {cartOrder.length > 0 ? (
-        <div>
-          {cartOrder.map((item) => (
+    <Layout>
+      <div>
+        {cartOrder.length > 0 ? (
+          <div>
+            {cartOrder.map((item) => (
+              <Paper
+                key={item.id}
+                sx={{
+                  p: 1,
+                  margin: "auto",
+                  mt: "1%",
+                  maxWidth: 500,
+                  flexGrow: 1,
+                  bgcolor: "#e2e2d0",
+                }}
+              >
+                <Grid container spacing={2}>
+                  <Grid item>
+                    <ButtonBase sx={{ width: 100, height: 100 }}>
+                      <Img
+                        style={{ width: 100, height: 80 }}
+                        alt="complex"
+                        src={item.imageUrl}
+                      />
+                    </ButtonBase>
+                  </Grid>
+                  <Grid item xs={12} sm container sx={{ mt: "12px" }}>
+                    <Grid item xs container direction="column" spacing={2}>
+                      <Grid item xs>
+                        <Typography>
+                          <h3>{item.name}</h3>
+                        </Typography>
+                        <Grid item sx={{ display: "flex", mt: "20px" }}>
+                          <button
+                            onClick={() => minusClickHandeler(item)}
+                            variant="contained"
+                            style={{
+                              width: "35px",
+                              height: "28px",
+                              backgroundColor: "#e6fff2",
+                              borderRadius: "8px",
+                            }}
+                          >
+                            -
+                          </button>
+                          &nbsp;&nbsp;
+                          <Typography sx={{ fontSize: "1.25rem" }}>
+                            {item.count}
+                          </Typography>
+                          &nbsp;&nbsp;
+                          {/* <Typography>{oddOrEven(item.count)}</Typography> */}
+                          <button
+                            onClick={() => addClickHandeler(item)}
+                            variant="contained"
+                            style={{
+                              width: "35px",
+                              height: "28px",
+                              backgroundColor: "#e6fff2",
+                              borderRadius: "8px",
+                            }}
+                          >
+                            +
+                          </button>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="subtitle1" component="div">
+                        ₹{item.price}x{item.count}=₹{item.price * item.count}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Paper>
+            ))}
+
             <Paper
-              key={item.id}
               sx={{
                 p: 2,
                 margin: "auto",
-                mt: "1%",
                 maxWidth: 500,
                 flexGrow: 1,
-                backgroundColor: (theme) =>
-                  theme.palette.mode === "dark" ? "#1A2027" : "#ccffcc",
+                mt: "1%",
+                backgroundColor: "#e2e2d0",
               }}
             >
-              <Grid container spacing={2}>
-                <Grid item>
-                  <ButtonBase sx={{ width: 128, height: 128 }}>
-                    <Img
-                      style={{ width: 100, height: 100 }}
-                      alt="complex"
-                      src={item.imageUrl}
-                    />
-                  </ButtonBase>
-                </Grid>
-                <Grid item xs={12} sm container>
-                  <Grid item xs container direction="column" spacing={2}>
-                    <Grid item xs>
-                      <Typography
-                        gutterBottom
-                        variant="subtitle1"
-                        component="div"
-                      >
-                        <p>{item.name}</p>
-                        <p>{item.description}</p>
-                      </Typography>
-                    </Grid>
-                    <Grid item sx={{ display: "flex" }}>
-                      <button
-                        onClick={() => minusClickHandeler(item)}
-                        variant="contained"
-                        style={{
-                          width: "25px",
-                          height: "22px",
-                          backgroundColor: "#7a7a52",
-
-                          borderRadius: ".4rem",
-                        }}
-                      >
-                        -
-                      </button>
-                      <Typography sx={{ fontSize: "1rem" }}>
-                        {item.count}
-                      </Typography>
-                      {/* <Typography>{oddOrEven(item.count)}</Typography> */}
-                      <button
-                        onClick={() => addClickHandeler(item)}
-                        variant="contained"
-                        style={{
-                          width: "25px",
-                          height: "22px",
-                          backgroundColor: "#7a7a52",
-
-                          borderRadius: ".4rem",
-                        }}
-                      >
-                        +
-                      </button>
-                    </Grid>
-                  </Grid>
-                  <Grid item>
-                    <Typography variant="subtitle1" component="div">
-                      ₹{item.price * item.count}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Grid>
+              <h3>Bill Details</h3>
+              <hr />
+              <br />
+              <h4>
+                Total Amount{" "}
+                <span style={{ marginLeft: "72%" }}>{totalAmounts}</span>
+              </h4>
+              <br />
             </Paper>
-          ))}
-
+            <Paper
+              sx={{
+                p: 2,
+                margin: "auto",
+                maxWidth: 500,
+                flexGrow: 1,
+                textAlign: "center",
+                mt: "1%",
+                backgroundColor: "#e2e2d0",
+              }}
+            >
+              {isLoggedIn ? (
+                <Button
+                  onClick={() =>
+                    orderNowButtonClickHandler(
+                      cartOrder,
+                      totalAmounts,
+                      formattedDate,
+                      restaurantName
+                    )
+                  }
+                  sx={{ bgcolor: "green", color: "black", width: "60%" }}
+                >
+                  ORDER NOW
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => alert("kindly log in first")}
+                  sx={{ bgcolor: "green", color: "black", width: "60%" }}
+                >
+                  ORDER NOW
+                </Button>
+              )}
+            </Paper>
+          </div>
+        ) : (
           <Paper
             sx={{
               p: 2,
@@ -183,79 +235,22 @@ export default function ComplexGrid() {
               maxWidth: 500,
               flexGrow: 1,
               mt: "1%",
-              backgroundColor: (theme) =>
-                theme.palette.mode === "dark" ? "	#00b300" : "#ccffcc",
+              backgroundColor: "#e2e2d0",
             }}
           >
-            <h3>Bill Details</h3>
+            <h3 style={{ textAlign: "center" }}>
+              Nothing in the Cart, Kindly start ordering
+            </h3>
             <hr />
-            <br />
-            <h4>
-              Total Amount{" "}
-              <span style={{ marginLeft: "72%" }}>{totalAmounts}</span>
-            </h4>
-            <br />
+            <Button
+              onClick={orderButtonClickHandler}
+              sx={{ bgcolor: "green", color: "black", width: "60%", ml: "20%" }}
+            >
+              ORDER NOW
+            </Button>
           </Paper>
-          <Paper
-            sx={{
-              p: 2,
-              margin: "auto",
-              maxWidth: 500,
-              flexGrow: 1,
-              textAlign: "center",
-              mt: "1%",
-              backgroundColor: (theme) =>
-                theme.palette.mode === "dark" ? "#1A2027" : "#b3ffb3",
-            }}
-          >
-            {isLoggedIn ? (
-              <Button
-                onClick={() =>
-                  orderNowButtonClickHandler(
-                    cartOrder,
-                    totalAmounts,
-                    formattedDate,
-                    restaurantName
-                  )
-                }
-                sx={{ bgcolor: "green", color: "black", width: "60%" }}
-              >
-                ORDER NOW
-              </Button>
-            ) : (
-              <Button
-                onClick={() => alert("kindly log in first")}
-                sx={{ bgcolor: "green", color: "black", width: "60%" }}
-              >
-                ORDER NOW
-              </Button>
-            )}
-          </Paper>
-        </div>
-      ) : (
-        <Paper
-          sx={{
-            p: 2,
-            margin: "auto",
-            maxWidth: 500,
-            flexGrow: 1,
-            mt: "1%",
-            backgroundColor: (theme) =>
-              theme.palette.mode === "dark" ? "	#00b300" : "#ccffcc",
-          }}
-        >
-          <h3 style={{ textAlign: "center" }}>
-            Nothing in the Cart, Kindly start ordering
-          </h3>
-          <hr />
-          <Button
-            onClick={orderButtonClickHandler}
-            sx={{ bgcolor: "green", color: "black", width: "60%", ml: "20%" }}
-          >
-            ORDER NOW
-          </Button>
-        </Paper>
-      )}
-    </div>
+        )}
+      </div>
+    </Layout>
   );
 }
