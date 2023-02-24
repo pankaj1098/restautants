@@ -12,6 +12,7 @@ import Signup from "./components/Signup";
 import UpdateAccount from "./components/UpdateAccount";
 import { getUserDataAction } from "./reducer/asyncUserReducer";
 import MenuList from "./components/MenuList";
+import InputForm from "./components/NewForm";
 
 function App() {
   const userData = useSelector((state) => state.user.userData);
@@ -27,6 +28,7 @@ function App() {
   return (
     <div>
       <Header />
+      {/* <InputForm/> */}
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/restaurantList" element={<RestaurantList />}></Route>

@@ -22,11 +22,14 @@ import {
 } from "../reducer/asyncUserReducer";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { selectIsLoggedIn } from "../reducer/userSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LogIn = () => {
   // const userLogInData = useSelector((state) => state.user.userData);
   const loggedInState = useSelector(selectIsLoggedIn);
   console.log(loggedInState);
+
   const paperStyle = { padding: "30px 20px", width: 350, margin: "20px auto" };
   const headerStyle = { margin: 0 };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
@@ -67,7 +70,7 @@ const LogIn = () => {
   const forgotPasswordButtonClickhandeler = () => {
     dispatch(resetPasswordUserAction(email));
   };
-
+  const notifyLogIn = () => toast("Welcome!");
   const loginDetailsChangeHandeler = async (e) => {
     e.preventDefault();
     console.log("1", email, password);
@@ -77,6 +80,7 @@ const LogIn = () => {
         password: password,
       })
     );
+    notifyLogIn();
   };
 
   return (
@@ -169,6 +173,16 @@ const LogIn = () => {
           </form>
         </Paper>
       </Grid>
+      <ToastContainer
+        position="top-right"
+        autoClose={false}
+        newestOnTop
+        closeOnClick
+        rtl
+        pauseOnFocusLoss
+        draggable
+        theme="light"
+      />
     </div>
   );
 };

@@ -564,6 +564,7 @@ const foodOrderSlice = createSlice({
       state.restaurantName = action.payload.name;
       console.log(response);
       state.menuItems = response;
+      state.cartItems = []
     },
   },
 });
