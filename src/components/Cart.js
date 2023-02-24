@@ -10,6 +10,8 @@ import { Button } from "@mui/material";
 import { selectIsLoggedIn } from "../reducer/userSlice";
 import { useNavigate } from "react-router-dom";
 import Layout from "./Layout";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Img = styled("img")({
   margin: "auto",
@@ -26,7 +28,7 @@ export default function ComplexGrid() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [totalAmounts, setTotalAmounts] = React.useState(0);
-
+  const notifyCart = () => toast("Congrats! Your order will reach soon to you");
   const addClickHandeler = (item) => {
     dispatch(increment(item));
   };
@@ -90,6 +92,7 @@ export default function ComplexGrid() {
       }),
       navigate("/orderlist")
     );
+    notifyCart();
   };
 
   const orderButtonClickHandler = () => {

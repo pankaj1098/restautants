@@ -12,7 +12,8 @@ import Signup from "./components/Signup";
 import UpdateAccount from "./components/UpdateAccount";
 import { getUserDataAction } from "./reducer/asyncUserReducer";
 import MenuList from "./components/MenuList";
-import InputForm from "./components/NewForm";
+// import InputForm from "./components/NewForm";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const userData = useSelector((state) => state.user.userData);
@@ -40,6 +41,18 @@ function App() {
         <Route path="/updateaccount" element={<UpdateAccount />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

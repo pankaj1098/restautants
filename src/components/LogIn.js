@@ -22,7 +22,7 @@ import {
 } from "../reducer/asyncUserReducer";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { selectIsLoggedIn } from "../reducer/userSlice";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const LogIn = () => {
@@ -70,7 +70,8 @@ const LogIn = () => {
   const forgotPasswordButtonClickhandeler = () => {
     dispatch(resetPasswordUserAction(email));
   };
-  const notifyLogIn = () => toast("Welcome!");
+  const notifyLogIn = () => toast("Welcome! You have successfully Logged In");
+
   const loginDetailsChangeHandeler = async (e) => {
     e.preventDefault();
     console.log("1", email, password);
@@ -173,16 +174,7 @@ const LogIn = () => {
           </form>
         </Paper>
       </Grid>
-      <ToastContainer
-        position="top-right"
-        autoClose={false}
-        newestOnTop
-        closeOnClick
-        rtl
-        pauseOnFocusLoss
-        draggable
-        theme="light"
-      />
+     
     </div>
   );
 };
